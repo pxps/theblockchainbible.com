@@ -16,7 +16,7 @@
     }
 
     body {
-      font-family: "SF Pro Display", -apple-system, BlinkMacOSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #000;
       color: #f5f5f7;
       min-height: 100vh;
@@ -32,7 +32,7 @@
     }
 
     header {
-      padding: 12vh 0 10vh;
+      padding: 12vh 0 8vh;
       text-align: center;
     }
 
@@ -65,6 +65,7 @@
       position: relative;
       aspect-ratio: 1 / 1.414;
       max-height: 88vh;
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
     .pdf-viewer-container iframe {
@@ -75,7 +76,7 @@
       background: #000;
     }
 
-    .download-btn {
+    .fullscreen-hint {
       position: absolute;
       bottom: 2.2rem;
       left: 50%;
@@ -91,13 +92,13 @@
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
-      text-decoration: none;
       z-index: 10;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .download-btn:hover {
-      background: rgba(255,255,255,0.22);
-      transform: translateX(-50%) translateY(-2px);
+    .pdf-viewer-container:hover .fullscreen-hint {
+      opacity: 1;
     }
 
     footer {
@@ -109,17 +110,19 @@
 
     @media (max-width: 768px) {
       header {
-        padding: 16vh 0 8vh;
+        padding: 16vh 0 6vh;
       }
       
       .pdf-viewer-container {
         border-radius: 18px;
         margin-bottom: 10vh;
+        aspect-ratio: 1 / 1.5;
       }
       
-      .download-btn {
+      .fullscreen-hint {
         bottom: 1.6rem;
         padding: 0.8rem 2rem;
+        font-size: 1rem;
       }
     }
   </style>
@@ -134,20 +137,24 @@
 
     <div class="pdf-viewer-container">
       <iframe 
-        src="bible.pdf#view=FitH"
+        src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://theblockchainbible.com/bible.pdf#view=FitH"
         title="圣经 PDF 阅读器"
         allowfullscreen
+        webkitallowfullscreen
+        mozallowfullscreen
+        allow="fullscreen"
       ></iframe>
 
-      <!-- <a href="bible.pdf" download class="download-btn">
-        下载完整 PDF
-      </a> -->
+      <!-- <div class="fullscreen-hint">点击右下角图标进入演示模式 / 按 F11 全屏</div> -->
     </div>
 
     <footer>
-        © 2026 The Blockchain Bible.
+      © 2026 The Blockchain Bible.
     </footer>
   </div>
+
+  <!-- 小提示：替换 src 中的 https://your-domain.com/bible.pdf 为你实际的PDF地址 -->
+  <!-- 如果PDF放在同目录，可改为相对路径 ?file=bible.pdf （但需通过服务器访问，不能直接双击html打开） -->
 
 </body>
 </html>
